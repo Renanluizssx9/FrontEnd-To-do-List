@@ -1,18 +1,16 @@
 import React from "react";
 import "./TaskListItem.css";
 
-// Define the interface for a task
 interface Task {
-  id: number;
+  _id: string;
   title: string;
   completed: boolean;
 }
 
-// Define the props for the TaskListItem component
 interface TaskListItemProps {
   task: Task;
-  onToggleComplete: (id: number) => void;
-  onDelete: (id: number) => void;
+  onToggleComplete: (id: string) => void;
+  onDelete: (id: string) => void;
 }
 
 const TaskListItem: React.FC<TaskListItemProps> = ({ task, onToggleComplete, onDelete }) => {
@@ -21,15 +19,20 @@ const TaskListItem: React.FC<TaskListItemProps> = ({ task, onToggleComplete, onD
       <input
         type="checkbox"
         checked={task.completed}
-        onChange={() => onToggleComplete(task.id)}
+        onChange={() => onToggleComplete(task._id)}
       />
-    
+
       <span style={{ textDecoration: task.completed ? "line-through" : "none" }}>
         {task.title}
       </span>
-  
-      <button className="task-list-item-button" onClick={() => onDelete(task.id)}>Delete</button>
-    </div> 
+
+      <button
+        className="task-list-item-button"
+        onClick={() => onDelete(task._id)} 
+      >
+        Delete
+      </button>
+    </div>
   );
 };
 

@@ -1,27 +1,30 @@
-/* Style the buttons for task list items */
-.task-list-item-button {
-  background-color: #dc3545;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  padding: 5px 10px;
-  font-size: 0.875rem;
-  cursor: pointer;
-  margin-top: 5px;
-}
 
-/* Style the buttons for task list items when the mouse hovers over them */
-.task-list-item-button:hover {
-  background-color: #c82333;
-}
+  .task-list-item-button {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    font-size: 0.875rem;
+    cursor: pointer;
+    margin-top: 5px;
+  }
 
-/* Style the task list items */
-.task-item {
-  display: flex;
-  justify-content: space-between;
-}
+  .task-list-item-button:hover {
+    background-color: #c82333;
+  }
 
-/* Style the spans inside the task list items */
-.task-item span {
-  font-size: 20px;
-}
+  .task-item {
+    display: flex;
+    justify-content:space-around;
+  }
+  .task-item span {
+    font-size: 20px;
+  }
+  button {
+    margin-right:50px;
+  }
+  ul li {
+    display: flex;
+    justify-content: space-between;
+  }
