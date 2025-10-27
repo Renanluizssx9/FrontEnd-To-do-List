@@ -136,3 +136,23 @@ body {
   background-color: #dc2626;
   transform: scale(1.05);
 }
+.delete-account-button {
+  margin-top: 15px;
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+.delete-account-button {
+    background-color: #dc2626;
+  transform: scale(1.05);
+}
+.logout-and-delte-button {
+  display:flex;
+  flex-direction: column;
+}

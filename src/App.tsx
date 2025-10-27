@@ -5,6 +5,7 @@ import TaskList from "./components/TaskList";
 import TaskForm from "./components/TaskForm";
 
 const API_URL = `${import.meta.env.VITE_API_URL}/tasks`;
+const DELETE_URL = `${import.meta.env.VITE_API_URL}/auth/delete`;
 
 interface Task {
   _id: string;
@@ -18,21 +19,32 @@ const App: React.FC = () => {
 
   useEffect(() => {
     const fetchTasks = async () => {
-      if (!token) return;
+      if (!token) {
+        window.location.href = "/login";
+        return;
+      }
+
       try {
         const response = await axios.get(API_URL, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setTasks(response.data);
-      } catch (error) {
+      } catch (error: any) {
         console.error("Erro ao buscar tarefas:", error);
+        if (error.response?.status === 401) {
+          alert("Sessão expirada ou conta não existe mais.");
+          localStorage.removeItem("token");
+          window.location.href = "/login";
+        }
       }
     };
+
     fetchTasks();
   }, [token]);
 
   const handleAddTask = async (title: string) => {
     if (!title.trim() || !token) return;
+
     try {
       const response = await axios.post(
         API_URL,
@@ -40,14 +52,20 @@ const App: React.FC = () => {
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setTasks((prev) => [...prev, response.data]);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Erro ao adicionar tarefa:", error);
+      if (error.response?.status === 401) {
+        alert("Sessão expirada. Faça login novamente.");
+        localStorage.removeItem("token");
+        window.location.href = "/login";
+      }
     }
   };
 
   const handleToggleComplete = async (taskId: string) => {
     const task = tasks.find((t) => t._id === taskId);
     if (!task || !token) return;
+
     try {
       const response = await axios.put(
         `${API_URL}/${taskId}`,
@@ -55,25 +73,37 @@ const App: React.FC = () => {
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setTasks((prev) => prev.map((t) => (t._id === taskId ? response.data : t)));
-    } catch (error) {
+    } catch (error: any) {
       console.error("Erro ao atualizar tarefa:", error);
+      if (error.response?.status === 401) {
+        alert("Sessão expirada. Faça login novamente.");
+        localStorage.removeItem("token");
+        window.location.href = "/login";
+      }
     }
   };
 
   const handleDeleteTask = async (taskId: string) => {
     if (!token) return;
+
     try {
       await axios.delete(`${API_URL}/${taskId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setTasks((prev) => prev.filter((t) => t._id !== taskId));
-    } catch (error) {
+    } catch (error: any) {
       console.error("Erro ao excluir tarefa:", error);
+      if (error.response?.status === 401) {
+        alert("Sessão expirada. Faça login novamente.");
+        localStorage.removeItem("token");
+        window.location.href = "/login";
+      }
     }
   };
 
   const handleEditTask = async (taskId: string, newTitle: string) => {
     if (!newTitle.trim() || !token) return;
+
     try {
       const response = await axios.put(
         `${API_URL}/${taskId}`,
@@ -81,14 +111,45 @@ const App: React.FC = () => {
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setTasks((prev) => prev.map((t) => (t._id === taskId ? response.data : t)));
-    } catch (error) {
+    } catch (error: any) {
       console.error("Erro ao editar tarefa:", error);
+      if (error.response?.status === 401) {
+        alert("Sessão expirada. Faça login novamente.");
+        localStorage.removeItem("token");
+        window.location.href = "/login";
+      }
     }
   };
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     window.location.href = "/login";
+  };
+
+  const handleDeleteAccount = async () => {
+    const confirmed = window.confirm(
+      "Tem certeza que deseja excluir sua conta? Essa ação é irreversível."
+    );
+    if (!confirmed || !token) return;
+
+    try {
+      const response = await axios.delete(DELETE_URL, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      if (response.status === 200) {
+        alert("Conta excluída com sucesso.");
+        localStorage.removeItem("token");
+        window.location.href = "/login";
+      } else {
+        alert("Erro ao excluir conta.");
+      }
+    } catch (error: any) {
+      console.error("Erro ao excluir conta:", error);
+      alert("Erro de conexão com o servidor.");
+      localStorage.removeItem("token");
+      window.location.href = "/login";
+    }
   };
 
   const totalTasks = tasks.length;
@@ -109,7 +170,13 @@ const App: React.FC = () => {
         <p>Total Tasks: {totalTasks}</p>
         <p>Completed Tasks: {completedTasks}</p>
         <p>Incomplete Tasks: {incompleteTasks}</p>
+        <div className="logout-and-delte-button">
         <button className="logout-button" onClick={handleLogout}>Logout</button>
+        <button className="delete-account-button" onClick={handleDeleteAccount}>
+          Delete account
+       
+        </button>
+           </div>
       </div>
     </div>
   );

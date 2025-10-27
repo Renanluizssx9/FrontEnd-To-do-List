@@ -61,13 +61,13 @@ const TaskList: React.FC<Props> = ({
           <div className="task-buttons">
             {editingId === task._id ? (
               <>
-                <button onClick={() => saveEdit(task._id)}>💾 Salvar</button>
-                <button onClick={() => setEditingId(null)}>❌ Cancelar</button>
+                <button onClick={() => saveEdit(task._id)}>💾 Save</button>
+                <button onClick={() => setEditingId(null)}>❌ Cancel</button>
               </>
             ) : (
               <>
-                <button onClick={() => startEditing(task)}>✏️ Editar</button>
-                <button onClick={() => onDelete(task._id)}>🗑️ Deletar</button>
+                <button onClick={() => startEditing(task)}>✏️ Edit</button>
+                <button onClick={() => onDelete(task._id)}>🗑️ Delete</button>
               </>
             )}
           </div>

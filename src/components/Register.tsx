@@ -21,40 +21,40 @@ const Register: React.FC = () => {
         password,
       });
 
-      setMessage("✅ Usuário registrado com sucesso!");
+      setMessage("✅ User registered successfully!");
       localStorage.setItem("token", response.data.token);
     } catch (error: any) {
       if (axios.isAxiosError(error) && error.response) {
-        setMessage(error.response.data.error || "Erro ao registrar");
+        setMessage(error.response.data.error || "Error during registration.");
       } else {
-        setMessage("Erro ao conectar com o servidor");
+        setMessage("Failed to connect to the server.");
       }
     }
   };
 
   return (
     <div className="container">
-      <h2 className="form-title">Criar Conta</h2>
+      <h2 className="form-title">Create account</h2>
       <form className="register-form" onSubmit={handleRegister}>
         <input
           type="email"
-          placeholder="Seu e-mail"
+          placeholder="Your email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
         />
         <input
           type="password"
-          placeholder="Sua senha"
+          placeholder="Your password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <button type="submit">Registrar</button>
+        <button type="submit">Register</button>
       </form>
 
       <button className="secondary-button" onClick={() => navigate("/login")}>
-        Entrar agora
+        Login now
       </button>
 
       {message && <p className="message">{message}</p>}

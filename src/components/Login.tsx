@@ -17,15 +17,15 @@ const Login: React.FC = () => {
     try {
       const response = await axios.post(`${API_URL}/auth/login`, { email, password });
       localStorage.setItem("token", response.data.token);
-      setMessage("Redirecionando...");
+      setMessage("Redirecting...");
       setTimeout(() => {
         window.location.href = "/";
       }, 1000);
     } catch (error: any) {
       if (axios.isAxiosError(error) && error.response) {
-        setMessage(error.response.data.error || "Erro ao fazer login");
+        setMessage(error.response.data.error || "Login failed.");
       } else {
-        setMessage("Erro de conexão com o servidor");
+        setMessage("Failed to connect to the server.");
       }
     }
   };
@@ -36,23 +36,23 @@ const Login: React.FC = () => {
       <form className="auth-form" onSubmit={handleLogin}>
         <input
           type="email"
-          placeholder="Seu e-mail"
+          placeholder="Your email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
         />
         <input
           type="password"
-          placeholder="Sua senha"
+          placeholder="Your password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <button type="submit">Entrar</button>
+        <button type="submit">Login</button>
       </form>
 
       <button className="secondary-button" onClick={() => navigate("/register")}>
-        Criar uma conta
+        Create an account
       </button>
 
       {message && (
