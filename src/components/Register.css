@@ -7,6 +7,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 20px;
 }
 
 .container {
@@ -106,4 +107,35 @@ body {
 
 .message.error {
   color: #ef4444;
+}
+
+/* 📱 Media Queries para telas menores */
+@media (max-width: 600px) {
+  .container {
+    padding: 24px;
+    width: 100%;
+  }
+
+  .auth-title,
+  .form-title {
+    font-size: 1.5rem;
+  }
+
+  .auth-form input,
+  .register-form input {
+    font-size: 0.95rem;
+    padding: 10px 12px;
+  }
+
+  .auth-form button,
+  .register-form button,
+  .secondary-button {
+    font-size: 0.95rem;
+    padding: 10px;
+    width: 100%;
+  }
+
+  .message {
+    font-size: 0.9rem;
+  }
 }

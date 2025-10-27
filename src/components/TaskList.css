@@ -23,6 +23,7 @@ li:hover {
   display: flex;
   align-items: center;
   flex: 1;
+  flex-wrap: wrap;
 }
 
 .task-content input[type="checkbox"] {
@@ -70,4 +71,34 @@ li:hover {
 .task-buttons button:hover {
   background-color: #475569;
   transform: scale(1.05);
+}
+
+/* 📱 Media Queries para telas menores */
+@media (max-width: 600px) {
+  li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .task-content {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+.task-content input[type="checkbox"] {
+  margin-right: 0px;
+  transform: scale(1.2);
+  margin-bottom:15px;
+}
+  .task-buttons {
+    flex-direction: column;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .task-buttons button {
+    width: 100%;
+    text-align: center;
+  }
 }

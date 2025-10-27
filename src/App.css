@@ -1,3 +1,4 @@
+/* Estilos base (desktop e tablets grandes) */
 body {
   margin: 0;
   font-family: "Inter", sans-serif;
@@ -31,7 +32,6 @@ body {
   color: #e2e8f0;
 }
 
-/* Campo + botão de adicionar tarefa */
 .task-form {
   display: flex;
   width: 100%;
@@ -68,7 +68,6 @@ body {
   transform: scale(1.05);
 }
 
-/* Tarefas */
 .task-item {
   background-color: rgba(255, 255, 255, 0.08);
   margin: 10px 0;
@@ -89,7 +88,6 @@ body {
   opacity: 0.7;
 }
 
-/* Botões de ação */
 .task-actions {
   display: flex;
   gap: 6px;
@@ -111,7 +109,6 @@ body {
   transform: scale(1.05);
 }
 
-/* Estatísticas + logout */
 .task-stats {
   margin-top: 25px;
   text-align: center;
@@ -119,7 +116,8 @@ body {
   color: #cbd5e1;
 }
 
-.logout-button {
+.logout-button,
+.delete-account-button {
   margin-top: 15px;
   background-color: #ef4444;
   color: white;
@@ -132,12 +130,47 @@ body {
   transition: background 0.3s ease, transform 0.2s ease;
 }
 
-.logout-button:hover {
+.logout-button:hover,
+.delete-account-button:hover {
   background-color: #dc2626;
   transform: scale(1.05);
 }
-.delete-account-button {
-  margin-top: 15px;
+
+.logout-and-delte-button {
+  display: flex;
+  flex-direction: column;
+}
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal {
+  background-color: #1e293b;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  color: #f8fafc;
+  max-width: 400px;
+  text-align: center;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.confirm-button {
   background-color: #ef4444;
   color: white;
   border: none;
@@ -145,14 +178,73 @@ body {
   border-radius: 10px;
   cursor: pointer;
   font-weight: 500;
-  font-size: 0.95rem;
-  transition: background 0.3s ease, transform 0.2s ease;
+  flex: 1;
 }
-.delete-account-button {
-    background-color: #dc2626;
-  transform: scale(1.05);
+
+.cancel-button {
+  background-color: #334155;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 500;
+  flex: 1;
 }
-.logout-and-delte-button {
-  display:flex;
-  flex-direction: column;
+
+/* 📱 Media Queries para telas menores */
+@media (max-width: 600px) {
+  .container {
+    padding: 24px;
+    width: 95%;
+  }
+
+  .title {
+    font-size: 1.6rem;
+  }
+
+  .task-form {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .task-form input[type="text"] {
+    margin-right: 0;
+    width: 100%;
+  }
+
+  .task-form button {
+    width: 100%;
+  }
+
+  .task-actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .task-actions button {
+    width: 100%;
+  }
+
+  .logout-button,
+  .delete-account-button {
+    width: 100%;
+  }
+   .modal {
+    padding: 20px;
+    max-width: 100%;
+    font-size: 0.95rem;
+  }
+
+  .modal-buttons {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .confirm-button,
+  .cancel-button {
+    width: 100%;
+    font-size: 1rem;
+  }
 }

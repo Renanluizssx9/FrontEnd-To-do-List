@@ -15,6 +15,7 @@ interface Task {
 
 const App: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const token = localStorage.getItem("token");
 
   useEffect(() => {
@@ -126,11 +127,12 @@ const App: React.FC = () => {
     window.location.href = "/login";
   };
 
+  const confirmDeleteAccount = () => {
+    setShowDeleteModal(true);
+  };
+
   const handleDeleteAccount = async () => {
-    const confirmed = window.confirm(
-      "Tem certeza que deseja excluir sua conta? Essa ação é irreversível."
-    );
-    if (!confirmed || !token) return;
+    if (!token) return;
 
     try {
       const response = await axios.delete(DELETE_URL, {
@@ -171,13 +173,24 @@ const App: React.FC = () => {
         <p>Completed Tasks: {completedTasks}</p>
         <p>Incomplete Tasks: {incompleteTasks}</p>
         <div className="logout-and-delte-button">
-        <button className="logout-button" onClick={handleLogout}>Logout</button>
-        <button className="delete-account-button" onClick={handleDeleteAccount}>
-          Delete account
-       
-        </button>
-           </div>
+          <button className="logout-button" onClick={handleLogout}>Logout</button>
+          <button className="delete-account-button" onClick={confirmDeleteAccount}>
+            Delete account
+          </button>
+        </div>
       </div>
+
+      {showDeleteModal && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <p>Tem certeza que deseja excluir sua conta? Essa ação é irreversível.</p>
+            <div className="modal-buttons">
+              <button onClick={handleDeleteAccount} className="confirm-button">Confirmar</button>
+              <button onClick={() => setShowDeleteModal(false)} className="cancel-button">Cancelar</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

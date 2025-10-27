@@ -104,3 +104,36 @@ body {
 .message.error {
   color: #ef4444;
 }
+@media (max-width: 600px) {
+  body {
+    padding: 20px;
+    align-items: flex-start;
+  }
+
+  .container {
+    padding: 24px;
+    width: 100%;
+    min-height: auto;
+  }
+
+  .auth-title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+
+  .auth-form input {
+    font-size: 0.95rem;
+    padding: 10px 12px;
+  }
+
+  .auth-form button,
+  .secondary-button {
+    font-size: 0.95rem;
+    padding: 10px;
+    width: 100%;
+  }
+
+  .message {
+    font-size: 0.9rem;
+  }
+}
