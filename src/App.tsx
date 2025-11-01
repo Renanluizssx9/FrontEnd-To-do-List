@@ -41,10 +41,12 @@ const App: React.FC = () => {
           headers: { Authorization: `Bearer ${token}` },
         });
         setTasks(response.data);
-      } catch (error: any) {
-        console.error("Error fetching tasks:", error);
-        if (error.response?.status === 401) {
-          handleSessionExpired();
+      } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+          console.error("Error fetching tasks:", error);
+          if (error.response?.status === 401) {
+            handleSessionExpired();
+          }
         }
       }
     };
@@ -62,10 +64,12 @@ const App: React.FC = () => {
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setTasks((prev) => [...prev, response.data]);
-    } catch (error: any) {
-      console.error("Error adding task:", error);
-      if (error.response?.status === 401) {
-        handleSessionExpired();
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        console.error("Error adding task:", error);
+        if (error.response?.status === 401) {
+          handleSessionExpired();
+        }
       }
     }
   };
@@ -83,10 +87,12 @@ const App: React.FC = () => {
       setTasks((prev) =>
         prev.map((t) => (t._id === taskId ? response.data : t))
       );
-    } catch (error: any) {
-      console.error("Error updating task:", error);
-      if (error.response?.status === 401) {
-        handleSessionExpired();
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        console.error("Error updating task:", error);
+        if (error.response?.status === 401) {
+          handleSessionExpired();
+        }
       }
     }
   };
@@ -99,10 +105,12 @@ const App: React.FC = () => {
         headers: { Authorization: `Bearer ${token}` },
       });
       setTasks((prev) => prev.filter((t) => t._id !== taskId));
-    } catch (error: any) {
-      console.error("Error deleting task:", error);
-      if (error.response?.status === 401) {
-        handleSessionExpired();
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        console.error("Error deleting task:", error);
+        if (error.response?.status === 401) {
+          handleSessionExpired();
+        }
       }
     }
   };
@@ -119,10 +127,12 @@ const App: React.FC = () => {
       setTasks((prev) =>
         prev.map((t) => (t._id === taskId ? response.data : t))
       );
-    } catch (error: any) {
-      console.error("Error editing task:", error);
-      if (error.response?.status === 401) {
-        handleSessionExpired();
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        console.error("Error editing task:", error);
+        if (error.response?.status === 401) {
+          handleSessionExpired();
+        }
       }
     }
   };
@@ -145,11 +155,13 @@ const App: React.FC = () => {
       } else {
         alert("Error deleting account.");
       }
-    } catch (error: any) {
-      console.error("Error deleting account:", error);
-      alert("Server connection error.");
-      logout();
-      window.location.href = "/login";
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        console.error("Error deleting account:", error);
+        alert("Server connection error.");
+        logout();
+        window.location.href = "/login";
+      }
     }
   };
 

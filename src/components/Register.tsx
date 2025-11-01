@@ -23,7 +23,7 @@ const Register: React.FC = () => {
 
       setMessage("✅ User registered successfully!");
       localStorage.setItem("token", response.data.token);
-    } catch (error: any) {
+    } catch (error: unknown) {
       if (axios.isAxiosError(error) && error.response) {
         setMessage(error.response.data.error || "Error during registration.");
       } else {

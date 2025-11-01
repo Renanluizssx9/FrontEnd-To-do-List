@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "./AuthContext"; // 👈 importa o contexto
+import { useAuth } from "./AuthContext";
 import "./Login.css";
 
 const Login: React.FC = () => {
@@ -10,7 +10,7 @@ const Login: React.FC = () => {
   const [message, setMessage] = useState("");
   const API_URL = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
-  const { login } = useAuth(); // 👈 pega a função do contexto
+  const { login } = useAuth();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,12 +21,12 @@ const Login: React.FC = () => {
         email,
         password,
       });
-      login(response.data.token); // 👈 salva o token via contexto
+      login(response.data.token);
       setMessage("Redirecting...");
       setTimeout(() => {
-        navigate("/"); // 👈 redireciona usando React Router
+        navigate("/");
       }, 1000);
-    } catch (error: any) {
+    } catch (error: unknown) {
       if (axios.isAxiosError(error) && error.response) {
         setMessage(error.response.data.error || "Login failed.");
       } else {
