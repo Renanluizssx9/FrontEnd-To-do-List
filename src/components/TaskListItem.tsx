@@ -13,7 +13,11 @@ interface TaskListItemProps {
   onDelete: (id: string) => void;
 }
 
-const TaskListItem: React.FC<TaskListItemProps> = ({ task, onToggleComplete, onDelete }) => {
+const TaskListItem: React.FC<TaskListItemProps> = ({
+  task,
+  onToggleComplete,
+  onDelete,
+}) => {
   return (
     <div className="task-item">
       <input
@@ -22,13 +26,15 @@ const TaskListItem: React.FC<TaskListItemProps> = ({ task, onToggleComplete, onD
         onChange={() => onToggleComplete(task._id)}
       />
 
-      <span style={{ textDecoration: task.completed ? "line-through" : "none" }}>
+      <span
+        style={{ textDecoration: task.completed ? "line-through" : "none" }}
+      >
         {task.title}
       </span>
 
       <button
         className="task-list-item-button"
-        onClick={() => onDelete(task._id)} 
+        onClick={() => onDelete(task._id)}
       >
         Delete
       </button>

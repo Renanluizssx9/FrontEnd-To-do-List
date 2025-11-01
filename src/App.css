@@ -192,7 +192,6 @@ body {
   flex: 1;
 }
 
-/* 📱 Media Queries para telas menores */
 @media (max-width: 600px) {
   .container {
     padding: 24px;
