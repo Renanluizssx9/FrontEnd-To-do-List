@@ -1,5 +1,5 @@
 import React from "react";
-import "./modals.css";
+import "./Modals.css";
 
 export const DeleteAccountModal: React.FC<{
   onConfirm: () => void;
