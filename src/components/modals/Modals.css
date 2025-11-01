@@ -49,3 +49,32 @@
   cursor: pointer;
   font-weight: 500;
 }
+@media (max-width: 600px) {
+  .modal-content {
+    max-width: 90%;
+    padding: 20px;
+    border-radius: 10px;
+    font-size: 0.95rem;
+  }
+
+  .modal-title {
+    font-size: 1.25rem;
+  }
+
+  .modal-text {
+    font-size: 0.95rem;
+  }
+
+  .modal-button.confirm,
+  .modal-button.cancel {
+    width: 100%;
+    margin-top: 10px;
+    font-size: 0.9rem;
+    padding: 10px;
+    border-radius: 8px;
+  }
+
+  .modal-button.cancel {
+    margin-top: 6px;
+  }
+}
