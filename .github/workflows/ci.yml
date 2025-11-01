@@ -1,0 +1,40 @@
+name: CI - Build and Validate
+
+on:
+  push:
+    branches: [main, renan-luiz-development-environment]
+  pull_request:
+    branches: [main, renan-luiz-development-environment]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v3
+
+      - name: Instalar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22.20.0
+
+      - name: Cache dependências
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Instalar dependências
+        run: npm install
+
+      - name: Rodar build
+        run: npm run build
+
+      - name: Verificar tipos com TypeScript
+        run: npx tsc --noEmit
+
+      - name: Rodar ESLint
+        run: npm run lint
